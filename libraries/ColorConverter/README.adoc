@@ -1,0 +1,121 @@
+= ColorConverter Library for Arduino =
+
+This library allows you convert HSI color model values to RGB and RGBW values. I wrote it because I wanted this conversion for programmable LEDs like WS2812 or APA102C as well as for DMX-512 lighting control. It also allows you to convert RGB values to HSI values.
+
+With HSI values, the overall power output of the LED remains constant, and the brightness of the eye remains constant, when fading across hues. This makes for more consistent color fades. For a better explanation, and the example code on which this is based, see http://blog.saikoled.com/post/43693602826/why-every-led-light-should-be-using-hsi[Saiko LED's blog post].
+
+= Commands =
+
+== ColorConverter
+
+.Syntax
+----
+ColorConverter converter;
+----
+
+.Parameters
+none
+
+.Returns
+void
+
+.Notes
+Creates a new instance of the library.
+
+== HSItoRGB
+
+.Syntax
+----
+converter.HSItoRGB(hue, saturation, intensity);
+----
+
+.Parameters
+* hue (_float_) - color hue, 0 to 360 degrees
+* saturation (_float_) - color saturation, 0 to 100
+* intensity (_float_) - color intensity, 0 to 100
+
+.Returns
+RGBColor (_struct_) - a structure containing four ints: red, green, blue, and white. All three or red, green, and blue will range from 0 to 255. For this function, white is always 0.
+
+.Example
+----
+RGBColor c = converter.HSItoRGB(hue, saturation, intensity);
+Serial.print(c.red);
+Serial.print(" ");
+Serial.print(c.green);
+Serial.print(" ");
+Serial.println(c.blue);
+----
+
+== HSItoRGBW
+
+.Syntax
+----
+converter.HSItoRGB(hue, saturation, intensity);
+----
+
+.Parameters
+* hue (_float_) - color hue, 0 to 360 degrees
+* saturation (_float_) - color saturation, 0 to 100
+* intensity (_float_) - color intensity, 0 to 100
+
+.Returns
+RGBColor (_struct_) - a structure containing four ints: red, green, blue, and white. All four will range from 0 to 255.
+
+.Example
+----
+RGBColor c = converter.HSItoRGB(hue, saturation, intensity);
+Serial.print(c.red);
+Serial.print(" ");
+Serial.print(c.green);
+Serial.print(" ");
+Serial.print(c.blue);
+Serial.print(" ");
+Serial.print(c.white);
+----
+
+== RGBtoHSI
+
+.Syntax
+----
+converter.RGBtoHSI(red, green,  blue);
+----
+
+.Parameters
+* red (_int_) - red value, 0 to 255
+* green (_int_) - green value, 0 to 255
+* blue (_int_) - blue value, 0 to 255
+
+.Returns
+HSIColor (_struct_) - a structure containing three floats: hue, saturation, and intensity.Hue will range from 0 to 359. Saturation and intensity will range from 0 to 100.
+
+.Example
+----
+HSIColor c = converter.RGBtoHSI(red, green, blue);
+Serial.print(c.hue);
+Serial.print(" ");
+Serial.print(c.saturation);
+Serial.print(" ");
+Serial.println(c.intensity);
+----
+
+.Notes
+
+
+== License ==
+
+Copyright (c) Tom Igoe. All right reserved.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
